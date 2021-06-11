@@ -1,5 +1,6 @@
 package fr.eni.servlet;
 
+import fr.eni.BusinessException;
 import fr.eni.bll.RepasManager;
 
 import javax.servlet.*;
@@ -12,7 +13,11 @@ public class ServletVisualisationRepas extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Historique.jsp");
-        request.setAttribute("historique", RepasManager.selectAll());
+        try {
+            request.setAttribute("historique", RepasManager.selectAll());
+        } catch (BusinessException e) {
+            request.setAttribute("listeCodeErreur", e.getListeCodeErreur());
+        }
         rd.forward(request, response);
     }
 

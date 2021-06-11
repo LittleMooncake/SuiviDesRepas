@@ -1,5 +1,6 @@
 package fr.eni.dal;
 
+import fr.eni.BusinessException;
 import fr.eni.bo.Aliments;
 import fr.eni.bo.Repas;
 
@@ -14,28 +15,48 @@ public class RepasDAOimpl implements RepasDAO{
     private final String INSERT_ALIMENT = "INSERT INTO Aliments(idRepas, aliment) VALUES (?,?);";
 
     @Override
-    public void insert(Repas repas) {
+    public void insert(Repas repas) throws BusinessException {
+        if (repas==null){
+            BusinessException e = new BusinessException();
+            e.ajouterErreur(CodeErreurDal.INSER_OBJET_NULL);
+            throw e;
+        }
         try (Connection connection = JdbcTools.getConnection()){
+            connection.setAutoCommit(false);
             PreparedStatement unPrStm = connection.prepareStatement(INSERT_REPAS, PreparedStatement.RETURN_GENERATED_KEYS);
             PreparedStatement unPrStm2 = connection.prepareStatement(INSERT_ALIMENT, PreparedStatement.RETURN_GENERATED_KEYS);
 
-            unPrStm.setDate(1, Date.valueOf(repas.getDateRepas()));
-            unPrStm.setTime(2, Time.valueOf(repas.getHeureRepas()));
-            unPrStm.executeUpdate();
-            ResultSet rs = unPrStm.getGeneratedKeys();
-            if (rs.next()){
-                repas.setIdRepas(rs.getInt(1));
-            }
-
-            for (Aliments aliments : repas.getAliments()){
-                aliments.setIdRepas(repas.getIdRepas());
-                unPrStm2.setInt(1, aliments.getIdRepas());
-                unPrStm2.setString(2, aliments.getNom());
-                unPrStm2.executeUpdate();
-                ResultSet rs2 = unPrStm2.getGeneratedKeys();
-                if (rs2.next()){
-                    aliments.setIdAliments(rs.getInt(1));
+            try {
+                unPrStm.setDate(1, Date.valueOf(repas.getDateRepas()));
+                unPrStm.setTime(2, Time.valueOf(repas.getHeureRepas()));
+                unPrStm.executeUpdate();
+                ResultSet rs = unPrStm.getGeneratedKeys();
+                if (rs.next()) {
+                    repas.setIdRepas(rs.getInt(1));
                 }
+            }catch (SQLException e) {
+                BusinessException businessException = new BusinessException();
+                businessException.ajouterErreur(CodeErreurDal.INSERT_REPAS_ECHEC);
+                throw businessException;
+            }
+            try {
+
+                for (Aliments aliments : repas.getAliments()){
+                    aliments.setIdRepas(repas.getIdRepas());
+                    unPrStm2.setInt(1, aliments.getIdRepas());
+                    unPrStm2.setString(2, aliments.getNom());
+                    unPrStm2.executeUpdate();
+                    ResultSet rs2 = unPrStm2.getGeneratedKeys();
+                    if (rs2.next()){
+                        aliments.setIdAliments(rs2.getInt(1));
+                    }
+                }
+                connection.commit();
+            } catch (SQLException e){
+                connection.rollback();
+                BusinessException businessException = new BusinessException();
+                businessException.ajouterErreur(CodeErreurDal.INSER_ALIMENTS_ECHEC);
+                throw businessException;
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -43,7 +64,7 @@ public class RepasDAOimpl implements RepasDAO{
     }
 
     @Override
-    public List<Repas> selectAll() {
+    public List<Repas> selectAll() throws BusinessException {
         List<Repas> listeRepas = new ArrayList<>();
         try (Connection connection = JdbcTools.getConnection()){
             PreparedStatement unPrStm = connection.prepareStatement(SELECT_ALL);
@@ -63,7 +84,9 @@ public class RepasDAOimpl implements RepasDAO{
                 }
             }
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodeErreurDal.SELECT_ALL);
+            throw businessException;
         }
 
         return listeRepas;
