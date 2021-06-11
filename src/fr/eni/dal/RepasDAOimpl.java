@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RepasDAOimpl implements RepasDAO{
-    private final String SELECT_ALL = "SELECT * FROM Repas LEFT JOIN Aliments ON Repas.idRepas = Aliments.idRepas ORDER BY Repas.date, Repas.heure DESC;";
+    private final String SELECT_ALL = "SELECT * FROM Repas LEFT JOIN Aliments ON Repas.idRepas = Aliments.idRepas ORDER BY Repas.date DESC, Repas.heure DESC;";
     private final String INSERT_REPAS = "INSERT INTO Repas(date, heure) VALUES (?,?);";
     private final String INSERT_ALIMENT = "INSERT INTO Aliments(idRepas, aliment) VALUES (?,?);";
 
