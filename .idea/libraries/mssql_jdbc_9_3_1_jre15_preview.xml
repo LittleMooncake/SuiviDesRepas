@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="mssql-jdbc-9.3.1.jre15-preview">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/mssql-jdbc-9.3.1.jre15-preview.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -12,7 +12,6 @@ public class JdbcTools {
 
     static {
         try {
-            //Je lis le fichier context.xml
             Context context = new InitialContext();
             JdbcTools.dataSource = (DataSource) context.lookup("java:comp/env/jdbc/cnxSuiviRepas");
 

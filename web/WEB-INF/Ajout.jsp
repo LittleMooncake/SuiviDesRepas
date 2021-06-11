@@ -11,12 +11,17 @@
     <title>Ajout</title>
 </head>
 <body>
-    <form>
+    <form method="post" action="ServletAjoutRepas">
         <label>Date</label>
-        <input type="date">
+        <input type="date" name="date">
         <br>
         <label>Heure</label>
-        <input type="time">
+        <input type="time" name="time">
+        <br>
+        <textarea name="aliments" cols="30" rows="5"></textarea>
+        <br>
+        <input type="submit">
     </form>
+    <a href="index.jsp">Retour</a>
 </body>
 </html>

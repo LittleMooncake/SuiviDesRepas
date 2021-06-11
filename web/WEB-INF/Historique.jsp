@@ -1,4 +1,7 @@
-<%--
+<%@ page import="java.util.List" %>
+<%@ page import="fr.eni.bo.Repas" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="fr.eni.bo.Aliments" %><%--
   Created by IntelliJ IDEA.
   User: ydrouet2021
   Date: 10/06/2021
@@ -11,6 +14,34 @@
     <title>Historique</title>
 </head>
 <body>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Heure</th>
+            <th>Aliments</th>
+        </tr>
+        <%
+            List<Repas> listeRepas = (List<Repas>) request.getAttribute("historique");
+            for (Repas repas : listeRepas){
+        %>
+        <tr>
+            <td><%= repas.getDateRepas().toString() %></td>
+            <td><%= repas.getHeureRepas().toString() %></td>
+            <td>
+                <% for (Aliments aliments : repas.getAliments()){%>
+                <%= aliments.getNom() %>
+                <br>
+                <% } %>
+            </td>
+        </tr>
+        <%
+            }
+        %>
+    </table>
 
+
+    <a href="ServletAjoutRepas">Ajouter un nouveau repas</a>
+    <br>
+    <a href="index.jsp">Retour à l'accueil</a>
 </body>
 </html>
