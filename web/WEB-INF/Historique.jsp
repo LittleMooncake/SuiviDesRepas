@@ -1,7 +1,10 @@
 <%@ page import="java.util.List" %>
 <%@ page import="fr.eni.bo.Repas" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="fr.eni.bo.Aliments" %><%--
+<%@ page import="fr.eni.bo.Aliments" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.time.format.DateTimeFormatter" %><%--
   Created by IntelliJ IDEA.
   User: ydrouet2021
   Date: 10/06/2021
@@ -22,10 +25,11 @@
         </tr>
         <%
             List<Repas> listeRepas = (List<Repas>) request.getAttribute("historique");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEEE dd MM yyyy");
             for (Repas repas : listeRepas){
         %>
         <tr>
-            <td><%= repas.getDateRepas().toString() %></td>
+            <td><%= repas.getDateRepas().format(formatter) %></td>
             <td><%= repas.getHeureRepas().toString() %></td>
             <td>
                 <% for (Aliments aliments : repas.getAliments()){%>

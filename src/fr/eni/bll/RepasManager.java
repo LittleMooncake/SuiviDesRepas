@@ -19,13 +19,14 @@ public class RepasManager {
 
         validerDate(date, exception);
         validerHeure(time, exception);
-
-        for (String aliment : tableauAliments){
-            aliment = aliment.trim();
-            String prmLettre = aliment.substring(0,1).toUpperCase();
-            String rstLettre = aliment.substring(1).toLowerCase();
-            aliment = prmLettre+rstLettre;
-            listeAliments.add(new Aliments(aliment));
+        if (!aliments.equals("")) {
+            for (String aliment : tableauAliments) {
+                aliment = aliment.trim();
+                String prmLettre = aliment.substring(0, 1).toUpperCase();
+                String rstLettre = aliment.substring(1).toLowerCase();
+                aliment = prmLettre + rstLettre;
+                listeAliments.add(new Aliments(aliment));
+            }
         }
         validerAliment(listeAliments, exception);
 

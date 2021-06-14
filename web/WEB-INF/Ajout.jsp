@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.List" %>
+<%@ page import="fr.eni.messages.LecteurMessage" %><%--
   Created by IntelliJ IDEA.
   User: ydrouet2021
   Date: 10/06/2021
@@ -11,6 +12,22 @@
     <title>Ajout</title>
 </head>
 <body>
+    <%
+        List<Integer> listeCodesErreur = (List<Integer>)request.getAttribute("listeCodeErreur");
+        if(listeCodesErreur!=null)
+        {
+    %>
+    <p style="color:red;" >Erreur, le repas n'a pas pu être ajouté :</p>
+    <%
+        for(int codeErreur:listeCodesErreur)
+        {
+    %>
+    <p style="color:red;"><%=LecteurMessage.getMessageErreur(codeErreur)%></p>
+    <%
+            }
+        }
+    %>
+
     <form method="post" action="ServletAjoutRepas">
         <label>Date</label>
         <input type="date" name="date">
