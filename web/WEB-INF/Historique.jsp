@@ -4,24 +4,20 @@
 <%@ page import="fr.eni.bo.Aliments" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
-<%@ page import="java.time.format.DateTimeFormatter" %><%--
-  Created by IntelliJ IDEA.
-  User: ydrouet2021
-  Date: 10/06/2021
-  Time: 16:12
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.time.format.DateTimeFormatter" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Historique</title>
+    <title> Historique </title>
 </head>
 <body>
+    <h1> HISTORIQUE </h1>
     <table>
         <tr>
-            <th>Date</th>
-            <th>Heure</th>
-            <th>Aliments</th>
+            <th> Date </th>
+            <th> Heure </th>
+            <th> Action </th>
         </tr>
         <%
             List<Repas> listeRepas = (List<Repas>) request.getAttribute("historique");

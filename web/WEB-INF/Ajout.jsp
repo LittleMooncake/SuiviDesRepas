@@ -1,17 +1,10 @@
-<%@ page import="java.util.List" %>
-<%@ page import="fr.eni.messages.LecteurMessage" %><%--
-  Created by IntelliJ IDEA.
-  User: ydrouet2021
-  Date: 10/06/2021
-  Time: 16:12
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Ajout</title>
+    <title>Ajout repas</title>
 </head>
 <body>
+    <h1> AJOUT </h1>
     <%
         List<Integer> listeCodesErreur = (List<Integer>)request.getAttribute("listeCodeErreur");
         if(listeCodesErreur!=null)
@@ -27,18 +20,25 @@
             }
         }
     %>
-
+    <div>
     <form method="post" action="ServletAjoutRepas">
-        <label>Date</label>
-        <input type="date" name="date">
-        <br>
-        <label>Heure</label>
-        <input type="time" name="time">
-        <br>
-        <textarea name="aliments" cols="30" rows="5"></textarea>
-        <br>
-        <input type="submit">
+        <div>
+            <label> date </label>
+            <input type="date" name="date">
+            <br>
+            <label> heure </label>
+            <input type="time" name="time">
+            <br>
+            <label> repas </label>
+            <textarea name="repas" cols="30" rows="5"></textarea>
+        </div>
+
+        <div>
+            <button type="submit"> </button>
+            <a href="index.jsp">Retour</a>
+        </div>
     </form>
-    <a href="index.jsp">Retour</a>
+    </div>
+
 </body>
 </html>
