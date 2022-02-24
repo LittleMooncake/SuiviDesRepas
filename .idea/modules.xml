@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Maven/Maven.iml" filepath="$PROJECT_DIR$/Maven/Maven.iml" />
       <module fileurl="file://$PROJECT_DIR$/SuiviDesRepas.iml" filepath="$PROJECT_DIR$/SuiviDesRepas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/untitled/untitled.iml" filepath="$PROJECT_DIR$/untitled/untitled.iml" />
     </modules>
   </component>
 </project>
