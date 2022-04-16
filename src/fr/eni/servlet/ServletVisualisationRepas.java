@@ -3,9 +3,7 @@ package fr.eni.servlet;
 import fr.eni.BusinessException;
 import fr.eni.bll.RepasManager;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+
 import java.io.IOException;
 
 @WebServlet(value = "/ServletVisualisationRepas")
